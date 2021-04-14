@@ -26,9 +26,6 @@ jobs:
           POSTGRES_DB: open_food_network_test
           POSTGRES_USER: ofn
           POSTGRES_PASSWORD: f00d
-    strategy:
-      matrix:
-        ci_node_index: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     steps:
       - uses: actions/checkout@v2
 
@@ -53,7 +50,7 @@ jobs:
           bundle exec rake db:schema:load RAILS_ENV=test
 
       - name: Run some specs
-        run: CI_NODE_INDEX="${{ matrix.ci_node_index }}" bundle exec rake 'knapsack:rspec[--format progress --tag ~performance .]'
+        run: KNAPSACK_GENERATE_REPORT=true bundle exec rspec --format progress --tag ~performance .
 
       - name: Codecov
         uses: codecov/codecov-action@v1.3.1
