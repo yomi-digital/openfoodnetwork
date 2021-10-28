@@ -26,6 +26,9 @@ module Spree
 
     def show
       @order = Spree::Order.find_by!(number: params[:id])
+      
+      # Crypto payment check
+      @crypto_payment_request = CryptoPaymentRequest.new(self, @order).send_order_details
 
       handle_stripe_response
     end

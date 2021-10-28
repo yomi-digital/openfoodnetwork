@@ -33,7 +33,6 @@ class CheckoutController < ::BaseController
 
   def edit
     return handle_redirect_from_stripe if valid_payment_intent_provided?
-
     # This is only required because of spree_paypal_express. If we implement
     # a version of paypal that uses this controller, and more specifically
     # the #action_failed method, then we can remove this call
@@ -186,6 +185,8 @@ class CheckoutController < ::BaseController
   def redirect_to_payment_gateway
     redirect_path = Checkout::PaypalRedirect.new(params).path
     redirect_path = Checkout::StripeRedirect.new(params, @order).path if redirect_path.blank?
+    redirect_path = Checkout::StripeRedirect.new(params, @order).path if redirect_path.blank?
+
     return if redirect_path.blank?
 
     render json: { path: redirect_path }, status: :ok

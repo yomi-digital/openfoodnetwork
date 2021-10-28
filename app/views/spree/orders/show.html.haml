@@ -8,6 +8,8 @@
   = render "shopping_shared/header" if current_distributor.present?
 
   %fieldset#order_summary.footer-pad{"data-hook" => ""}
+    - if last_payment_method_crypto?(@order)
+      = render 'crypto_payment_method', crypto_payment_request: @crypto_payment_request
     .row
       .columns.large-12.text-center
         %h2

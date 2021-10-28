@@ -2041,6 +2041,8 @@ See the %{link} to find out more about %{sitename}'s features and to start using
   orders_bought_already_confirmed: "* already confirmed"
   orders_confirm_cancel: "Are you sure you want to cancel this order?"
   order_processed_successfully: "Your order has been processed successfully"
+  order_confirmed_crypto_payment_title: "Order confirmed but payment is pending."
+  order_confirmed_crypto_payment_description: "Please scan the QR code below to complete the payment."
 
   products_cart_distributor_choice: "Distributor for your order:"
   products_cart_distributor_change: "Your distributor for this order will be changed to %{name} if you add this product to your cart."
