@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module OrderHelper
+  # @YOMI_TODO move the Payment method to a static variable
   def last_payment_method_crypto?(order)
     ["BUONI SPESA"].include?(last_payment_method(order)&.name)
   end

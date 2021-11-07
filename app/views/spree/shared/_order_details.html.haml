@@ -16,7 +16,8 @@
         %strong=  last_payment_method(order)&.name
       %p.text-small.text-skinny.pre-line
         %em= last_payment_method(order)&.description
-
+    - if last_payment_method_crypto?(@order)
+      = render 'crypto_payment_method', crypto_payment_response: @crypto_payment_response, order: order
     .order-summary.text-small
       %strong
         = t :order_billing_address
@@ -34,6 +35,7 @@
     - else
       = render 'spree/shared/shipment_pickup_details', order: order
 %br
+
 .row
   .columns.large-12
     - if order.changes_allowed?

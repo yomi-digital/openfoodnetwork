@@ -1,11 +1,24 @@
 .row
-  .columns.large-12.text-center
-    %h3
-      = t(:order_confirmed_crypto_payment_title)
-    %p
-      = t(:order_confirmed_crypto_payment_description)
+  .columns.large-12
+    .order-summary.text-small
+      .right
+        - if order.paid?
+          = t :order_paid
+        - else
+          = t :order_not_paid
+      %strong
+        = t(:order_confirmed_crypto_payment_title)
+    .pad
+      .text-big
+        %p
+          = t(:order_confirmed_crypto_payment_description)
 
 .row
-  .columns.large-12.text-center
-    %img
-      = image_tag crypto_payment_request['qrcode']
+  .columns.large-12
+    = image_tag crypto_payment_response['qrcode']
+    %br
+
+.row
+  .columns.large-12
+    #crypto-payment-timer
+      %span "Hello"

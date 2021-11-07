@@ -11,6 +11,7 @@ class CryptoPaymentRequest
   end
 
   # Calls the external API to fetch the QR code for payment
+  # @YOMI_TODO move the URI to a static variable
   def send_order_details
     uri = URI("http://134.209.31.112:4000/payments/create")
     response = Net::HTTP.post_form(uri, {"order_id": @order.number, "amount": @order.amount, "hash_user": @order.email})

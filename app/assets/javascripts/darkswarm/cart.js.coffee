@@ -7,3 +7,12 @@ $ ->
 
   ($ 'form#update-cart').submit ->
     ($ 'form#update-cart #update-button').attr('disabled', true)
+
+  ###
+  This piece of code checks for the status of 
+  Address to be procured from this API: https://github.com/yomi-digital/ficosofn/issues/4
+  @YOMI_TODO move the URI to a static variable
+  ###
+  if $('#crypto-payment-timer').length
+    $.get 'http://134.209.31.112:4000/payments/check/', (data) ->
+      $('#crypto-payment-timer span').text(data['message']['payment']['status'])

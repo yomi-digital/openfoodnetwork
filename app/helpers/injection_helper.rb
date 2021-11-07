@@ -167,6 +167,13 @@ module InjectionHelper
     render partial: "json/injection_ams", locals: { name: name, json: json }
   end
 
+  # @YOMI_TODO: WIP - Need to configure the Model to store the payment related data that is received from the API mentioned below
+  # Inject the crypto payment request data into a content_for block to be used to check for payment response
+  # https://github.com/yomi-digital/ficosofn/issues/5
+  # def inject_crypto_payment_data
+  #   inject_json "cryptoPaymentResponse", @crypto_payment_response, Api::OrderSerializer
+  # end
+
   private
 
   def default_enterprise_query
