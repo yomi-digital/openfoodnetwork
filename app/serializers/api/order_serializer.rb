@@ -9,22 +9,6 @@ module Api
 
     has_many :payments, serializer: Api::PaymentSerializer
 
-    # ========
-    # Beginning of this issue related comment -> https://github.com/yomi-digital/ficosofn/issues/5
-
-    # @YOMI_TODO: WIP - Need to configure the Model to store the payment related data that is received from the API mentioned above
-
-    # Circumventing the "undefined method `read_attribute_for_serialization' for #<Hash:0x00007f8f2ba501b0>" issue 
-    # while using this serializer in the OrdersController
-
-    # Refer to this article to better understand why this is necessary
-    # https://sergiodxa.com/articles/use-activemodel-serializer-with-non-activerecord-object
-    # def read_attribute_for_serialization(attr)
-    #   return object[attr.to_s]
-    # end
-    # End of this issue related comment
-    # ========
-
     # This method relies on `balance_value` as a computed DB column. See `CompleteOrdersWithBalance`
     # for reference.
     def outstanding_balance

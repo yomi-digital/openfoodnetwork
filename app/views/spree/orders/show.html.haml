@@ -3,7 +3,6 @@
 
 - content_for :injection_data do
   = inject_enterprise_and_relatives if current_distributor.present?
-/ = inject_crypto_payment_data if @crypto_payment_response.present?
 
 .darkswarm
   = render "shopping_shared/header" if current_distributor.present?

@@ -54,6 +54,7 @@
     = inject_rails_flash
     = inject_current_order
     = inject_currency_config
+    = inject_crypto_payment_data if @crypto_payment_response.present?
     = yield :injection_data
 
     = render "layouts/matomo_tag"

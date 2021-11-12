@@ -1,11 +1,9 @@
-.row
+.row#crypto-payment-status
   .columns.large-12
     .order-summary.text-small
       .right
-        - if order.paid?
-          = t :order_paid
-        - else
-          = t :order_not_paid
+        %span
+          = t(:order_confirmed_crypto_payment_default_status)
       %strong
         = t(:order_confirmed_crypto_payment_title)
     .pad
@@ -15,10 +13,11 @@
 
 .row
   .columns.large-12
-    = image_tag crypto_payment_response['qrcode']
+    .center
+      = image_tag crypto_payment_response['qrcode']
     %br
 
 .row
   .columns.large-12
-    #crypto-payment-timer
-      %span "Hello"
+    #crypto-payment-timer.center
+    #crypto-payment-progress-bar

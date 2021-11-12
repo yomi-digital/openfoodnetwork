@@ -1,0 +1,51 @@
+:javascript
+  // This piece of code checks for the status of 
+  // Address to be procured from this API: https://github.com/yomi-digital/ficosofn/issues/4
+  // @YOMI_TODO move the URI to a static variable
+
+  if ($('#crypto-payment-status').length > 0) {
+    console.log("Timer present")
+
+    var interval = 60000; // ms
+    var expected = Date.now() + interval;
+
+    function progress(timeleft, timetotal, $element) {
+      var progressBarWidth = timeleft * $element.width() / timetotal;
+      $element.find('div').animate({ width: progressBarWidth }, 500).html(Math.floor(timeleft/60) + ":"+ timeleft%60);
+
+      if(timeleft > 0) {
+        setTimeout(function() {
+          progress(timeleft - 1, timetotal, $element);
+        }, 1000);
+      }
+    };
+
+    function fetchPaymentStatus() {
+      var dt = Date.now() - expected; // the drift (positive for overshooting)
+      if (dt > interval) {
+          // something really bad happened. Maybe the browser (tab) was inactive?
+          // possibly special handling to avoid futile "catch up" run
+      }
+      console.log("Fetch payment status");
+
+      $.get('http://134.209.31.112:4000/payments/check/#{raw @crypto_payment_response['address']}')
+        .done(function(data) {
+          console.log(data);
+
+          if (data['paid'].length > 0) {
+            if (data['paid'] == true) {
+              $('#crypto-payment-status').hide();
+              $('#crypto-payment-status span').text(data['paid']);
+            }
+          } else {
+            $('#crypto-payment-status span').text("Unpaid");
+          }
+        });
+
+      expected += interval;
+      setTimeout(fetchPaymentStatus, Math.max(0, interval - dt)); // take into account drift
+    }
+
+    progress(60, 60, $('#crypto-payment-progress-bar'));
+    setTimeout(fetchPaymentStatus(), interval);
+  }
