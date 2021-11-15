@@ -7,7 +7,7 @@
       %strong
         = t(:order_confirmed_crypto_payment_title)
     .pad
-      .text-big
+      .text-big.center
         %p
           = t(:order_confirmed_crypto_payment_description)
 
@@ -19,5 +19,8 @@
 
 .row
   .columns.large-12
-    #crypto-payment-timer.center
+    #crypto-payment-timer
+      %strong.pad
+        Timer
     #crypto-payment-progress-bar
+      .bar
