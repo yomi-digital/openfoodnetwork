@@ -58,6 +58,20 @@ en_FR:
             using_producer_stock_settings_but_count_on_hand_set: "must be blank because using producer stock settings"
             on_demand_but_count_on_hand_set: "must be blank if on demand"
             limited_stock_but_no_count_on_hand: "must be specified because forcing limited stock"
+  stripe:
+    error_code:
+      incorrect_number: "The card number is incorrect."
+      invalid_number: "The card number is not a valid credit card number."
+      invalid_expiry_month: "The card's expiration month is invalid."
+      invalid_expiry_year: "The card's expiration year is invalid."
+      invalid_cvc: "The card's security code is invalid."
+      expired_card: "The card has expired."
+      incorrect_cvc: "The card's security code is incorrect."
+      incorrect_zip: "The card's zip code failed validation."
+      card_declined: "The card was declined."
+      missing: "There is no card on a customer that is being charged."
+      processing_error: "An error occurred while processing the card."
+      rate_limit: "An error occurred due to requests hitting the API too quickly. Please let us know if you're consistently running into this error."
   activemodel:
     attributes:
       order_management/reports/enterprise_fee_summary/parameters:
@@ -724,7 +738,7 @@ en_FR:
           company_placeholder: Example Inc.
           address1: Legal address
           address1_placeholder: 123 High St.
-          address2: Address(contd.)
+          address2: Address (contd.)
           legal_phone_number: Legal phone number
           phone_placeholder: "98 123 4565"
         contact:
@@ -1133,11 +1147,40 @@ en_FR:
       xero_invoices:
         name: Xero Invoices
         description: Invoices for import into Xero
-      packing:
-        name: Packing Reports
       enterprise_fee_summary:
         name: "Enterprise Fee Summary"
         description: "Summary of Enterprise Fees collected"
+      errors:
+        no_report_type: "Please specify a report type"
+        report_not_found: "Report not found"
+        missing_ransack_params: "Please supply Ransack search params in the request"
+      hidden_field: "< Hidden >"
+      summary_row:
+        total: "TOTAL"
+      table:
+        select_and_search: "Select filters and click on %{option} to access your data."
+        headings:
+          hub: "Hub"
+          customer_code: "Code"
+          first_name: "First Name"
+          last_name: "Last Name"
+          supplier: "Supplier"
+          product: "Product"
+          variant: "Variant"
+          quantity: "Quantity"
+          is_temperature_controlled: "TempControlled?"
+          temp_controlled: "TempControlled?"
+      rendering_options:
+        generate_report: "Generate report:"
+        on_screen: "On screen"
+        csv_spreadsheet: "CSV Spreadsheet"
+        excel_spreadsheet: "Excel Spreadsheet"
+        openoffice_spreadsheet: "OpenOffice Spreadsheet"
+        hide_summary_rows: "Hide summary Rows"
+      packing:
+        name: "Packing Reports"
+        customer_report: "Pack By Customer"
+        supplier_report: "Pack By Supplier"
     subscriptions:
       index:
         title: "Subscriptions"
@@ -3561,6 +3604,7 @@ en_FR:
             no_payment_via_admin_backend: Paypal payments cannot be captured in the Backoffice
       products:
         image_upload_error: "The product image was not recognised. Please upload an image in PNG or JPG format."
+        paperclip_image_error: "Paperclip returned errors for file '%{attachment_file_name}' - check ImageMagick installation or image source file."
         new:
           title: "New Product"
           new_product: "New Product"
@@ -3701,6 +3745,7 @@ en_FR:
       flatpickr_datetime_format: "Y-m-d H:i"
       today: "Today"
       now: "Now"
+      close: "Close"
     orders:
       error_flash_for_unavailable_items: "An item in your cart has become unavailable. Please update the selected quantities."
       edit:

@@ -4,7 +4,7 @@ module Features
   module DatepickerHelper
     def choose_today_from_datepicker
       within(".flatpickr-calendar.open") do
-        find('.shortcut-buttons-flatpickr-button').click
+        find("button", text: "TODAY").click
       end
     end
 
@@ -46,6 +46,12 @@ module Features
       month = find(".flatpickr-calendar.open .flatpickr-current-month select.flatpickr-monthDropdown-months").value.to_i + 1
       year = find(".flatpickr-calendar.open .flatpickr-current-month .numInputWrapper .cur-year").value
       month.to_s + " " + year.to_s
+    end
+
+    def pick_datetime(calendar_selector, datetime_selector)
+      find(calendar_selector).click
+      select_datetime_from_datepicker datetime_selector
+      find("body").send_keys(:escape)
     end
   end
 end

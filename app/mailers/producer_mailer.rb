@@ -65,7 +65,7 @@ class ProducerMailer < Spree::BaseMailer
       from_order_cycle(order_cycle).
       sorted_by_name_and_unit_value.
       merge(Spree::Product.with_deleted.in_supplier(producer)).
-      merge(Spree::Order.by_state('complete'))
+      merge(Spree::Order.by_state(["complete", "resumed"]))
   end
 
   def total_from_line_items(line_items)
@@ -77,7 +77,7 @@ class ProducerMailer < Spree::BaseMailer
   end
 
   def set_customer_data(line_items)
-    return unless @coordinator.preferred_show_customer_names_to_suppliers
+    return unless @coordinator.show_customer_names_to_suppliers?
 
     line_items.map do |line_item|
       {

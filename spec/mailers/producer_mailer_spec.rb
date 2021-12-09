@@ -26,6 +26,7 @@ describe ProducerMailer, type: :mailer do
   let(:p3) { create(:product, name: "Banana", price: 34.56, supplier: s1) }
   let(:p4) { create(:product, name: "coffee", price: 45.67, supplier: s1) }
   let(:p5) { create(:product, name: "Daffodil", price: 56.78, supplier: s1) }
+  let(:p6) { create(:product, name: "Eggs", price: 67.89, supplier: s1) }
   let(:order_cycle) { create(:simple_order_cycle) }
   let!(:incoming_exchange) {
     order_cycle.exchanges.create! sender: s1, receiver: d1, incoming: true,
@@ -103,6 +104,22 @@ describe ProducerMailer, type: :mailer do
     expect(mail.body.encoded).not_to include p5.name
   end
 
+  context "when a cancelled order has been resumed" do
+    let!(:order_resumed) do
+      order = create(:order, distributor: d1, order_cycle: order_cycle, state: 'complete')
+      order.line_items << create(:line_item, variant: p6.variants.first)
+      order.finalize!
+      order.cancel
+      order.resume
+      order.save!
+      order
+    end
+
+    it "includes items from resumed orders" do
+      expect(mail.body.encoded).to include p6.name
+    end
+  end
+
   it "includes the total" do
     expect(mail.body.encoded).to include 'Total: $50.00'
     expect(body_as_html(mail).find("tr.total-row"))
@@ -128,9 +145,9 @@ describe ProducerMailer, type: :mailer do
     expect(mail.body.encoded).to include(p1.name)
   end
 
-  context 'when flag preferred_show_customer_names_to_suppliers is true' do
+  context 'when flag show_customer_names_to_suppliers is true' do
     before do
-      order_cycle.coordinator.set_preference(:show_customer_names_to_suppliers, true)
+      order_cycle.coordinator.show_customer_names_to_suppliers = true
     end
 
     it "adds customer names table" do
@@ -160,9 +177,9 @@ describe ProducerMailer, type: :mailer do
     end
   end
 
-  context 'when flag preferred_show_customer_names_to_suppliers is false' do
+  context 'when flag show_customer_names_to_suppliers is false' do
     before do
-      order_cycle.coordinator.set_preference(:show_customer_names_to_suppliers, false)
+      order_cycle.coordinator.show_customer_names_to_suppliers = false
     end
 
     it "does not add customer names table" do

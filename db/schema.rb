@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_27_091723) do
+ActiveRecord::Schema.define(version: 2021_10_29_174211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -210,6 +210,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_091723) do
     t.integer "terms_and_conditions_file_size"
     t.datetime "terms_and_conditions_updated_at"
     t.integer "business_address_id"
+    t.boolean "show_customer_names_to_suppliers", default: false, null: false
     t.index ["address_id"], name: "index_enterprises_on_address_id"
     t.index ["is_primary_producer", "sells"], name: "index_enterprises_on_is_primary_producer_and_sells"
     t.index ["name"], name: "index_enterprises_on_name", unique: true
@@ -373,10 +374,8 @@ ActiveRecord::Schema.define(version: 2021_09_27_091723) do
   end
 
   create_table "spree_adjustments", force: :cascade do |t|
-    t.integer "source_id"
     t.decimal "amount", precision: 10, scale: 2
     t.string "label", limit: 255
-    t.string "source_type", limit: 255
     t.integer "adjustable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

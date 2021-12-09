@@ -239,6 +239,7 @@ module Spree
       can [:admin, :index, :customers, :orders_and_distributors, :group_buys, :payments,
            :orders_and_fulfillment, :products_and_inventory, :order_cycle_management, :packing],
           Spree::Admin::ReportsController
+      can [:admin, :show, :packing], :report
       add_bulk_coop_abilities
       add_enterprise_fee_summary_abilities
     end
@@ -341,7 +342,8 @@ module Spree
     def add_relationship_management_abilities(user)
       can [:admin, :index, :create], EnterpriseRelationship
       can [:destroy], EnterpriseRelationship do |enterprise_relationship|
-        user.enterprises.include? enterprise_relationship.parent
+        user.enterprises.include?(enterprise_relationship.parent) ||
+          user.enterprises.include?(enterprise_relationship.child)
       end
     end
 

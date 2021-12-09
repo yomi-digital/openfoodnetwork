@@ -58,6 +58,20 @@ fr:
             using_producer_stock_settings_but_count_on_hand_set: "doit être vide car utilise les informations de stock du producteur"
             on_demand_but_count_on_hand_set: "doit être vide si \"à volonté\""
             limited_stock_but_no_count_on_hand: "doit être spécifié car pas \"à volonté\""
+  stripe:
+    error_code:
+      incorrect_number: "Le numéro de carte bancaire est incorrect."
+      invalid_number: "Le numéro de carte bancaire n'est pas un numéro valide."
+      invalid_expiry_month: "Le mois d'expiration de la carte bancaire est erroné."
+      invalid_expiry_year: "L'année d'expiration de la carte bancaire est erronée."
+      invalid_cvc: "Le code de sécurité de la carte bancaire est erroné."
+      expired_card: "La carte bancaire a expiré."
+      incorrect_cvc: "Le code de sécurité de la carte bancaire est erroné."
+      incorrect_zip: "Le code postal de la carte bancaire est erroné."
+      card_declined: "La carte bancaire a été refusée."
+      missing: "Il n'y a pas de carte bancaire liée à cet acheteur."
+      processing_error: "Une erreur est survenue durant le traitement du paiement."
+      rate_limit: "Une erreur est survenue suite à un grand nombre de requête quasi-simultanée sur notre API. Veuillez contacter notre support si vous observez cette erreur trop souvent."
   activemodel:
     attributes:
       order_management/reports/enterprise_fee_summary/parameters:
@@ -724,7 +738,7 @@ fr:
           company_placeholder: Indiquez ici le nom légal de votre entreprise
           address1: Adresse du siège social
           address1_placeholder: 123, rue de la Chèvre
-          address2: Complément d'adresse
+          address2: Adresse (suite)
           legal_phone_number: Numéro de téléphone
           phone_placeholder: "09 00 00 00 00"
         contact:
@@ -1135,11 +1149,40 @@ fr:
       xero_invoices:
         name: Facture Xero
         description: Factures pour import dans Xero
-      packing:
-        name: Rapports de préparation des paniers
       enterprise_fee_summary:
         name: "Résumé des marges et commissions"
         description: "Résumé des marges et commissions collectées"
+      errors:
+        no_report_type: "Merci de sélectionner un type de rapport"
+        report_not_found: "Le rapport n'a pas été trouvé"
+        missing_ransack_params: "Veuillez renseigner un filtre ou une sélection de dates"
+      hidden_field: "< Masqué >"
+      summary_row:
+        total: "Total"
+      table:
+        select_and_search: "Sélectionner les filtres et cliquer sur %{option} pour accéder aux données."
+        headings:
+          hub: "Boutique"
+          customer_code: "Code"
+          first_name: "Prénom"
+          last_name: "Nom"
+          supplier: "Fournisseur"
+          product: "Produit"
+          variant: "Variante"
+          quantity: "Quantité"
+          is_temperature_controlled: "Temp Contrôlée ?"
+          temp_controlled: "Temp Contrôlée ?"
+      rendering_options:
+        generate_report: "Générer le rapport :"
+        on_screen: "A l'écran"
+        csv_spreadsheet: "CSV"
+        excel_spreadsheet: "Excel"
+        openoffice_spreadsheet: "OpenOffice"
+        hide_summary_rows: "Masquer les lignes de totaux"
+      packing:
+        name: "Rapports de préparation des paniers"
+        customer_report: "Préparation des commandes par Acheteur"
+        supplier_report: "Préparation des commandes par Producteur"
     subscriptions:
       index:
         title: "Abonnements"
@@ -1404,7 +1447,7 @@ fr:
   state: Département
   country: Pays
   unauthorized: Non authorisé
-  terms_of_service: "Conditions d'utilisation"
+  terms_of_service: "Conditions Générales d'Utilisation de CoopCircuits"
   on_demand: A volonté
   none: Aucun
   not_allowed: Non autorisé
@@ -3590,6 +3633,7 @@ fr:
             no_payment_via_admin_backend: 'Il n''est pas encore possible de payer avec Paypal via l''administration. '
       products:
         image_upload_error: "L'image du produit n'a pas été reconnue. Veuillez importer une image au format PNG ou JPG."
+        paperclip_image_error: "Erreur pour le ficher '%{attachment_file_name}' - veuillez vérifier la source du fichier."
         new:
           title: "Nouveau Produit"
           new_product: "Nouveau Produit"
@@ -3644,7 +3688,7 @@ fr:
           bulk_coop_packing_sheets: 'Achats groupés - Feuilles de préparation des paniers'
           bulk_coop_customer_payments: 'Achats groupés - Paiement des acheteurs'
         customer_names_message:
-          customer_names_tip: "Si les noms des acheteurs sont masqué, vous pouvez contacter le gestionnaire de la boutique. Il pourra vous donner accès à cette information."
+          customer_names_tip: "Si les noms des acheteurs sont masqués, vous pouvez contacter le gestionnaire de la boutique. Il pourra vous donner accès à cette information."
       users:
         index:
           listing_users: "Liste des utilisateurs"
@@ -3730,6 +3774,7 @@ fr:
       flatpickr_datetime_format: "d-m-Y H:i"
       today: "Aujourd'hui"
       now: "Maintenant"
+      close: "Fermer"
     orders:
       error_flash_for_unavailable_items: "Un élément de votre panier est épuisé. Veuillez mettre à jour les quantités sélectionnées."
       edit:

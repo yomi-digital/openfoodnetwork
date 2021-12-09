@@ -152,6 +152,20 @@ module Openfoodnetwork
       #{config.root}/app/jobs
     )
 
+    initializer "ofn.reports" do |app|
+      module ::Reporting; end
+      loader = Zeitwerk::Loader.new
+      loader.push_dir("#{Rails.root}/lib/reporting", namespace: ::Reporting)
+      loader.enable_reloading
+      loader.setup
+      loader.eager_load
+
+      if Rails.env.development?
+        require 'listen'
+        Listen.to("lib/reporting") { loader.reload }.start
+      end
+    end
+
     config.paths["config/routes.rb"] = %w(
       config/routes/api.rb
       config/routes.rb
@@ -217,5 +231,7 @@ module Openfoodnetwork
     config.generators.template_engine = :haml
 
     config.autoloader = :zeitwerk
+
+    config.action_view.form_with_generates_ids = true
   end
 end

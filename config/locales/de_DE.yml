@@ -40,7 +40,7 @@ de_DE:
         spree/user:
           attributes:
             email:
-              taken: "Es gibt bereits ein Konto für diese E-Mail-Adresse. Bitte versuchen Sie sich einzuloggen oder setzen Sie Ihr Passwort zurück."
+              taken: "Es gibt bereits ein Konto für diese E-Mail-Adresse. Bitte versuchen Sie sich einzuloggen oder setzen Sie Ihr Passwort zurück indem Sie oben auf \"Passwort vergessen?\" klicken."
             reset_password_token:
               invalid: ist ungültig
         spree/order:
@@ -58,6 +58,20 @@ de_DE:
             using_producer_stock_settings_but_count_on_hand_set: "muss leer sein, da die Einstellungen des Produzentenbestands verwendet werden"
             on_demand_but_count_on_hand_set: "muss leer sein, wenn unbegrenzt verfügbar oder die Produktion auf Bestellung erfolgt"
             limited_stock_but_no_count_on_hand: "muss angegeben werden, da nur begrenzte Lagerbestände verfügbar sind"
+  stripe:
+    error_code:
+      incorrect_number: "Die Kreditkartennummer ist fehlerhaft."
+      invalid_number: "Der Wert ist keine gültige Kreditkartennummer."
+      invalid_expiry_month: "Der Monat des Ablaufdatums der Kreditkarte ist ungültig."
+      invalid_expiry_year: "Das Jahr des Ablaufdatums der Kreditkarte ist ungültig."
+      invalid_cvc: "Die Kartenprüfnummer der Kreditkarte ist ungültig."
+      expired_card: "Die Kreditkarte ist abgelaufen."
+      incorrect_cvc: "Die Kartenprüfnummer der Kreditkarte ist fehlerhaft."
+      incorrect_zip: "Die Prüfung der Postleitzahl der Kreditkarte ist fehlgeschlagen."
+      card_declined: "Die Kreditkarte wurde abgelehnt."
+      missing: "Für die Zahlung eines Kundens ist keine Kreditkarte verfügbar."
+      processing_error: "Bei der Verarbeitung der Kreditkartenzahlung ist ein Fehler aufgetreten."
+      rate_limit: "Ein Fehler ist aufgetreten, weil Anfragen zu schnell an die API gesendet wurden. Bitte teilen Sie es uns mit, wenn dieser Fehler häufiger auftritt."
   activemodel:
     attributes:
       order_management/reports/enterprise_fee_summary/parameters:
@@ -118,7 +132,7 @@ de_DE:
     failure:
       invalid: |
           Ungültige E-Mail-Adresse oder falsches Passwort.
-          Falls Sie als Gast bestellt haben, erstellen Sie bitte ein Konto. Falls Sie ihr Passwort vergessen haben, setzen sie dieses zurück.
+          Falls Sie zuvor als Gast bestellt haben, registrieren Sie sich bitte. Falls Sie ihr Passwort vergessen haben, setzen Sie dieses zurück. Klicken Sie dazu oben auf "Registrieren" bzw. "Passwort vergessen?".
       unconfirmed: "Sie müssen Ihr Konto bestätigen, bevor Sie fortfahren."
       already_registered: "Diese E-Mail-Adresse ist bereits registriert. Bitte loggen Sie sich ein oder verwenden Sie eine andere E-Mail-Adresse."
     success:
@@ -224,13 +238,13 @@ de_DE:
         explainer: Diese Bestellungen wurden bereits als vollständig markiert und daher nicht verändert.
       processing:
         title: Fehler aufgetreten (%{count} Bestellungen)
-        explainer: Die automatische Verarbeitung dieser Bestellungen ist aufgrund eines Fehlers fehlgeschlagen. Der Fehler wurde soweit möglich aufgelistet.
+        explainer: Die automatische Verarbeitung dieser Bestellungen ist aufgrund eines Fehlers gescheitert. Soweit möglich wurde der Fehler aufgelistet.
       failed_payment:
         title: Fehlgeschlagene Zahlung (%{count} Bestellungen)
         explainer: Die automatische Zahlungsabwicklung für diese Bestellungen ist aufgrund eines Fehlers gescheitert. Soweit möglich wurde der Fehler aufgelistet.
       other:
         title: Andere Fehler (%{count} Bestellungen)
-        explainer: Die automatische Verarbeitung dieser Bestellungen ist aus einem unbekannten Grund fehlgeschlagen. Dies sollte nicht geschehen, bitte kontaktieren Sie uns, wenn Sie dies sehen.
+        explainer: Die automatische Verarbeitung dieser Bestellungen ist aus einem unbekannten Grund gescheitert. Dies sollte nicht geschehen, Bitte kontaktieren Sie uns, wenn Sie dies sehen.
   home: "OFN"
   title: "Open Food Network"
   welcome_to: "Regionale Lebensmittel online bestellen im"
@@ -238,6 +252,7 @@ de_DE:
   search_by_name: Suche nach Ort oder Name des Ladens/Produzents ...
   producers_join: 'Wir laden Produzenten ein, jetzt dem Open Food Network beizutreten. '
   charges_sales_tax: Berechnen Sie Steuern?
+  business_address: "Unternehmensdaten"
   print_invoice: "Rechnung drucken"
   print_ticket: "Beleg drucken"
   select_ticket_printer: "Wählen Sie einen Drucker für die Belege."
@@ -575,7 +590,7 @@ de_DE:
         inventories: Katalog
         import: Importieren
         upload: Hochladen
-        csv_templates: Vorlagen (.csv-Dateien)
+        csv_templates: Vorlagen (csv-Dateien)
         product_list_template: Produktlistenvorlage herunterladen
         inventory_template: Katalogvorlage herunterladen
         category_values: Verfügbare Kategorien
@@ -717,6 +732,15 @@ de_DE:
           terms_and_conditions: "Allgemeine Geschäftsbedingungen"
           remove_terms_and_conditions: "Datei löschen"
           uploaded_on: "hochgeladen am"
+          reset_form: "zurücksetzen"
+        business_address:
+          company_legal_name: Unternehmensname
+          company_placeholder: z. B. Charlies großartige Farm
+          address1: Straße + Hausnummer
+          address1_placeholder: z. B. Gartenstraße 123
+          address2: Adresszusatz (optional)
+          legal_phone_number: Telefonnummer
+          phone_placeholder: "z. B. +49 40 123 456"
         contact:
           name: Name
           name_placeholder: z. B. Gustav Pflaume
@@ -724,7 +748,7 @@ de_DE:
           email_address_placeholder: z. B. anfragen@fresh-food.com
           email_address_tip: "Diese E-Mail-Adresse wird in Ihrem öffentlichen Profil angezeigt."
           phone: Telefonnummer
-          phone_placeholder: z. B. 98 7654 3210
+          phone_placeholder: z. B. +49 40 123 456
           website: Homepage
           website_placeholder: z. B. www.truffles.com
         enterprise_fees:
@@ -1125,11 +1149,40 @@ de_DE:
       xero_invoices:
         name: Xero Rechnungen
         description: Rechnungen für den Import in Xero
-      packing:
-        name: Packlisten
       enterprise_fee_summary:
         name: "Unternehmensgebühren"
         description: "Bericht der erhobenen Gebühren"
+      errors:
+        no_report_type: "Bitte wählen Sie eine Berichtsart aus."
+        report_not_found: "Bericht wurde nicht gefunden."
+        missing_ransack_params: "Bitte geben Sie die Suchparameter von Ransack in der Anfrage an."
+      hidden_field: "< verborgen >"
+      summary_row:
+        total: "SUMME"
+      table:
+        select_and_search: "Treffen Sie Ihre Auswahl und klicken Sie auf %{option}, um den Bericht zu erstellen."
+        headings:
+          hub: "Hub"
+          customer_code: "Code"
+          first_name: "Vorname"
+          last_name: "Nachname"
+          supplier: "Lieferant"
+          product: "Produkt"
+          variant: "Variante"
+          quantity: "Menge"
+          is_temperature_controlled: "Temperaturüberwachte Artikel?"
+          temp_controlled: "Temperaturüberwachte Artikel?"
+      rendering_options:
+        generate_report: "Bericht erstellen:"
+        on_screen: "Auf dem Bildschirm"
+        csv_spreadsheet: "csv-Datei"
+        excel_spreadsheet: "Excel-Datei"
+        openoffice_spreadsheet: "OpenOffice-Tabelle"
+        hide_summary_rows: "Zusammenfassungszeilen ausblenden"
+      packing:
+        name: "Packlisten"
+        customer_report: "Packliste nach Kunden"
+        supplier_report: "Packliste nach Lieferanten"
     subscriptions:
       index:
         title: "Abonnements"
@@ -1539,6 +1592,7 @@ de_DE:
   split_checkout:
     your_details_without_number: Ihre Daten
     payment_method_without_number: Zahlungsart
+    order_summary_without_number: Bestellübersicht
     step1:
       your_details:
         title: Ihre Daten
@@ -1553,7 +1607,7 @@ de_DE:
           placeholder: z. B. Max.Mustermann@beispiel.com
         phone:
           label: Telefonnummer
-          placeholder: z. B. 016012345678
+          placeholder: z. B. +49 40 123 456
       billing_address:
         title: Rechnungsadresse
       address:
@@ -1995,13 +2049,13 @@ de_DE:
         headline: "Ihr Unternehmen"
         enterprise: "Nennen Sie uns zunächst bitte den Namen und die Adresse Ihres Unternehmens."
         producer: "Nennen Sie uns zunächst bitte den Namen und die Adresse Ihres Betriebs."
-        enterprise_name_field: "Name des Unternehmens:"
+        enterprise_name_field: "Unternehmensname:"
         producer_name_field: "Name des Betriebs:"
         producer_name_field_placeholder: "z. B. Charlies großartige Farm"
         producer_name_field_error: "Bitte wählen Sie einen eindeutigen Namen für Ihr Unternehmen."
-        address1_field: "Adresse:"
+        address1_field: "Straße + Hausnummer:"
         address1_field_placeholder: "z. B. Gartenstraße 123"
-        address1_field_error: "Bitte geben Sie eine Adresse ein."
+        address1_field_error: "Bitte geben Sie eine Straße und Hausnummer ein."
         address2_field: "Adresszusatz (optional):"
         suburb_field: "Ort:"
         suburb_field_placeholder: "z. B. Nordwestheim"
@@ -2025,7 +2079,7 @@ de_DE:
         contact_field_placeholder: "Vorname Nachname"
         contact_field_required: "Bitte geben Sie einen Hauptansprechpartner ein."
         phone_field: "Telefonnummer (optional)"
-        phone_field_placeholder: "z. B. 030 1234 5678"
+        phone_field_placeholder: "z. B. +49 40 123 456"
       type:
         title: "Art des Profils"
         headline: "Wählen Sie bitte die Profilart für %{enterprise} aus!"
@@ -2156,7 +2210,7 @@ de_DE:
   admin_enterprise_groups_data_powertip_logo: "Dies ist das Logo für die Gruppe."
   admin_enterprise_groups_data_powertip_promo_image: "Dieses Bild wird oben im Gruppenprofil angezeigt."
   admin_enterprise_groups_contact: "Kontakt"
-  admin_enterprise_groups_contact_phone_placeholder: "z. B. 98 7654 3210"
+  admin_enterprise_groups_contact_phone_placeholder: "z. B. +40 40 123456"
   admin_enterprise_groups_contact_address1_placeholder: "z. B. Gartenstraße 123"
   admin_enterprise_groups_contact_city: "Ort"
   admin_enterprise_groups_contact_city_placeholder: "z. B. Nordwestheim"
@@ -2568,6 +2622,7 @@ de_DE:
     resolve_errors: Bitte beheben Sie die folgenden Fehler
     more_items: "+ %{count} mehr"
     default_card_updated: Die Standardkreditkarte wurde aktualisiert.
+    default_card_voids_auth: Wenn Sie Ihre Standardkreditkarte ändern, werden die bestehenden Autorisierungen der Läden Ihre Karte zu belasten entfernt. Sie können den Läden nach der Aktualisierung der Standardkreditkarte erneut eine Autorisierung erteilen. Möchten Sie die Standardkarte ändern?
     cart:
       add_to_cart_failed: >
           Beim Hinzufügen dieses Produkts zum Warenkorb ist ein Fehler aufgetreten.
@@ -2607,6 +2662,8 @@ de_DE:
           title: "Allgemeine Geschäftsbedingungen hochladen"
           message_1: "Alle Ihre Käufer müssen ihnen einmal an der Kasse zustimmen. Wenn Sie die Datei aktualisieren, müssen alle Ihre Käufer an der Kasse erneut zustimmen."
           message_2: "Zu beachten bei Abonnements: Bitte senden Sie Käufern von Abonnements vorerst die Allgemeinen Geschäftsbedingungen (oder die Änderungen dieser) direkt per E-Mail zu. Sie werden nicht automatisch über diese Änderungen informiert."
+        business_address_info:
+          message: "Möchten Sie auf Rechnungen Ihren Unternehmensnamen sowie die zugehörige Adresse und Telefonnummer abweichend von den bei Ihrer Registrierung hinterlegten Daten angeben, tragen Sie diese hier ein. Diese Daten werden NUR auf Rechnungen verwendet. Wenn diese Felder leer sind, werden Ihre unter \"Adresse\" und \"Kontakt\" angegebenen Daten zu Name, Adresse und Telefonnummer verwendet."
       panels:
         save: SPEICHERN
         saved: GESPEICHERT
@@ -2765,7 +2822,7 @@ de_DE:
           failed: "fehlgeschlagen"
           paid: "bezahlt"
           pending: "ausstehend"
-          requires_authorization: "Bestätigung erforderlich"
+          requires_authorization: "Autorisierung erforderlich"
           processing: "in Verarbeitung"
           void: "keine Angabe"
           invalid: "ungültig"
@@ -3046,7 +3103,7 @@ de_DE:
   shipment: "Lieferung"
   shipment_inc_vat: "Liefergebühr inkl. Mehrwertsteuer"
   shipping_tax_rate: "Steuersatz der Liefergebühr"
-  category: "Produktkategorie"
+  category: "Kategorie"
   import_date: "Importdatum"
   delivery: "Lieferung"
   temperature_controlled: "Temperaturüberwacht"
@@ -3300,10 +3357,10 @@ de_DE:
     shared:
       error_messages:
         errors_prohibited_this_record_from_being_saved:
-          one: "1 Fehler hat das Speichern dieses Datensatzes verhindert:"
-          few: "%{count} Fehler haben das Speichern dieses Datensatzes verhindert:"
-          many: "%{count} Fehler haben das Speichern dieses Datensatzes verhindert:"
-          other: "%{count} Fehler haben das Speichern dieses Datensatzes verhindert:"
+          one: "Ein Fehler hat das Speichern dieses Datensatzes verhindert."
+          few: "%{count} Fehler haben das Speichern dieses Datensatzes verhindert."
+          many: "%{count} Fehler haben das Speichern dieses Datensatzes verhindert."
+          other: "%{count} Fehler haben das Speichern dieses Datensatzes verhindert."
         there_were_problems_with_the_following_fields: "Es gab Probleme mit folgenden Feldern"
       payments_list:
         date_time: "Datum/Uhrzeit"
@@ -3394,7 +3451,7 @@ de_DE:
           reason: "Grund"
           stock_location: "Lagerort"
         states:
-          authorized: "Genehmigt"
+          authorized: "Autorisiert"
           received: "Empfangen"
           canceled: "abgebrochen"
       orders:
@@ -3483,12 +3540,12 @@ de_DE:
           new: "Neu"
           back_to_shipping_methods_list: "Zurück zur Liste der Lieferoptionen"
         form:
-          categories: "Kategorien"
+          categories: "Lieferkategorien"
           tax_category: "Steuerkategorie"
           zones: "Zonen"
           both: "Sowohl an der Kasse als auch im Backoffice"
           back_end: "Nur im Backoffice"
-          deactivation_warning: "Durch Deaktivieren einer Lieferoption wird die Lieferoption Ihren Kunden nicht mehr zur Verfügung stehen. Alternativ können Sie eine Lieferoption an der Kasse ausblenden, indem Sie die Option \"Anzeige\" auf \"Nur Backoffice\" setzen."
+          deactivation_warning: "Durch Deaktivieren einer Lieferoption wird die Lieferoption Ihren Kunden nicht mehr zur Verfügung stehen. Alternativ können Sie eine Lieferoption an der Kasse ausblenden, indem Sie die Option \"Anzeige\" auf \"Nur im Backoffice\" setzen."
       payment_methods:
         index:
           payment_methods: "Zahlungsarten"
@@ -3537,7 +3594,7 @@ de_DE:
           front_end: "Nur an der Kasse"
           back_end: "Nur im Backoffice"
           tags: "Stichwörter"
-          deactivation_warning: "Durch Deaktivieren einer Zahlungsart wird die Zahlungsart Ihren Kunden nicht mehr zur Verfügung stehen. Alternativ können Sie eine Zahlungsart an der Kasse ausblenden, indem Sie die Option \"Anzeige\" auf \"Nur Backoffice\" setzen."
+          deactivation_warning: "Durch Deaktivieren einer Zahlungsart wird die Zahlungsart Ihren Kunden nicht mehr zur Verfügung stehen. Alternativ können Sie eine Zahlungsart an der Kasse ausblenden, indem Sie die Option \"Anzeige\" auf \"Nur im Backoffice\" setzen."
         providers:
           provider: "Anbieter"
           check: "Bargeld, EC etc. (Zahlungen, für die keine automatische Validierung erforderlich ist)"
@@ -3556,6 +3613,7 @@ de_DE:
             no_payment_via_admin_backend: Paypal-Zahlungen können nicht im Backoffice erfasst werden.
       products:
         image_upload_error: "Das Produktbild wurde nicht erkannt. Bitte laden Sie ein Bild im PNG- oder JPG-Format hoch."
+        paperclip_image_error: "Paperclip meldet einen Fehler für die Datei \"%{attachment_file_name}\". Überprüfen Sie die Bilddatei und die ImageMagick-Installation."
         new:
           title: "Neues Produkt"
           new_product: "Neues Produkt"
@@ -3696,6 +3754,7 @@ de_DE:
       flatpickr_datetime_format: "d.m.Y H:i"
       today: "heute"
       now: "Jetzt"
+      close: "Schließen"
     orders:
       error_flash_for_unavailable_items: "Ein Artikel in Ihrem Warenkorb ist nicht mehr verfügbar. Bitte passen Sie die ausgewählten Mengen an."
       edit:
@@ -3722,7 +3781,7 @@ de_DE:
       paid: bezahlt
       pending: ausstehend
       processing: in Verarbeitung
-      requires_authorization: "Bestätigung erforderlich"
+      requires_authorization: "Autorisierung erforderlich"
       void: keine Angabe
       invalid: ungültig
       authorise: zu bestätigen
@@ -3761,11 +3820,11 @@ de_DE:
         subject: "Bitte bestätigen Sie Ihre Registrierung im Open Food Network"
     payment_mailer:
       authorize_payment:
-        subject: "Bitte bestätigen Sie Ihre Zahlung an %{distributor} im Open Food Network"
-        instructions: "Ihre Zahlung in Höhe von %{amount} an %{distributor} erfordert Ihre zusätzliche Bestätigung. Bitte klicken Sie auf den folgenden Link, um Ihre Zahlung zu bestätigen:"
+        subject: "Bitte autorisieren Sie Ihre Zahlung an %{distributor} im Open Food Network"
+        instructions: "Ihre Zahlung in Höhe von %{amount} an %{distributor} erfordert Ihre zusätzliche Autorisierung. Bitte klicken Sie auf den folgenden Link, um Ihre Zahlung zu bestätigen:"
       authorization_required:
-        subject: "Eine Zahlung muss durch den Kunden bestätigt werden"
-        message: "Die Zahlung der Bestellung %{order_number} erfordert eine zusätzliche Bestätigung durch den Kunden. Der Kunde wurde per E-Mail benachrichtigt und die Zahlung wird bis zur Bestätigung als ausstehend angezeigt."
+        subject: "Eine Zahlung muss durch den Kunden autorisiert werden"
+        message: "Die Zahlung der Bestellung %{order_number} erfordert eine zusätzliche Autorisierung durch den Kunden. Der Kunde wurde per E-Mail benachrichtigt und die Zahlung wird bis zur Bestätigung als ausstehend angezeigt."
     shipment_mailer:
       shipped_email:
         dear_customer: "Liebe Kundin, lieber Kunde,"
@@ -3836,7 +3895,7 @@ de_DE:
       transactions:
         transaction_history: Transaktionsverlauf
         authorisation_required: Bestätigung erforderlich
-        authorise: Bestätigen
+        authorise: Autorisieren
       open_orders:
         order: Bestellung
         shop: Laden
